@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/stylesheethome.css">
+    <link rel="stylesheet" href="../CSS/stylesheetbuy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="../Pictures_for_website/logo.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="buy.html">Buy</a></li>
+                <li><a href="sell.html">Sell</a></li>
+                <li><a href="../index.html"><i class='fa fa-sign-out' title='Log out'></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="buy-featured-products">
+            <div class="home-hero-bg">
+                <h2>Fresh Of The Boat!</h2>
+                <p class="home-hero-subtitle">New textbook that are for sell from your university</p>
+            </div>
+            <div class="buy-product-grid" id="buy-product-grid">
+                <!-- Product cards will be loaded here by AJAX -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 TextbookMarketPlace. All rights reserved.</p>
+        <p>Contact: textbookmarketplace369@gmail.com for help</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../PHP/fetch_textbooks_for_home.php')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('buy-product-grid').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('buy-product-grid').innerHTML = '<div class="buy-product-card"><p>Error loading inventory.</p></div>';
+                });
+        });
+    </script>
+</body>
+
+</html>

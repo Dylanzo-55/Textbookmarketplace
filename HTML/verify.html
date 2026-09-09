@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Email</title>
+    <link rel="stylesheet" href="../CSS/stylesheetverify.css"> <!-- Fix path -->
+</head>
+<body>
+    <div class="centered-form-container">
+        <div class="glass-box">
+            <h2 class="form-title">Verify Email</h2>
+            <form action="../PHP/verify.php" method="POST"> <!-- Fix path -->
+                <label id ="verification-label">A verification code has been sent to your email address. Please make sure to also check your spam folder</br></label>
+                <input type="text" name="code" placeholder="Verification Code" required>
+                <button type="submit" class="form-btn">Verify</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

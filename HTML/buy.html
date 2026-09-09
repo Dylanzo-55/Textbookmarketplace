@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/stylesheethome.css"> <!-- Fix path -->
+    <link rel="stylesheet" href="../CSS/stylesheetbuy.css"> <!-- Fix path -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="../Pictures_for_website/logo.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="buy.html" class = 'active'>Buy</a></li>
+                <li><a href="sell.html">Sell</a></li>
+                <li><a href="../index.html"><i class='fa fa-sign-out' title='Log out'></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="buy-featured-products">
+            <div class="buy-hero-bg">
+                <h2>Looking For A Textbook?</h2>
+                <p class="buy-hero-subtitle">All the available textbooks in the market</p>
+                <div class="search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search" id="search-input">
+                    <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+            </div>
+            <div class="buy-product-grid" id="buy-product-grid">
+                <!-- Product cards will be loaded here by AJAX -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 My Website. All rights reserved.</p>
+        <p>Contact: textbookmarketplace369@gmail.com for help</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function loadAllTextbooks(query = '') {
+            fetch('../PHP/fetch_textbooks.php' + (query ? '?search=' + encodeURIComponent(query) : ''))
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('buy-product-grid').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('buy-product-grid').innerHTML = '<div class="buy-product-card"><p>Error loading inventory.</p></div>';
+                });
+        }
+
+        // Initial load
+        loadAllTextbooks();
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        searchInput.addEventListener('input', function() {
+            loadAllTextbooks(this.value);
+        });
+        cancelBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            loadAllTextbooks();
+        });
+    });
+    </script>
+</body>
+
+</html>
